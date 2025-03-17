@@ -3,7 +3,7 @@ import path from "path";
 
 export default function handler(req, res) {
     if (req.method !== "GET") {
-        return res.status(405).json({ error: "Метод не поддерживается" });
+        return res.status(405).json({ error: "Method not supported" });
     }
 
     const workerPath = path.resolve(process.cwd(), "src/workers/dataWorker.js");
@@ -13,7 +13,7 @@ export default function handler(req, res) {
 
         worker.on("message", (result) => {
             res.status(200).json({
-                message: "Обработка завершена",
+                message: "Processing completed",
                 data: result,
             });
         });
@@ -25,7 +25,7 @@ export default function handler(req, res) {
         worker.postMessage("start");
     } catch (err) {
         res.status(500).json({
-            error: "Ошибка запуска воркера: " + err.message,
+            error: " Worker start error: " + err.message,
         });
     }
 }
